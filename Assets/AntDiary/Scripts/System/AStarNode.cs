@@ -3,7 +3,7 @@ using UnityEngine;
 namespace AntDiary{
 	internal class AStarNode{
 
-		internal Node Node{
+		internal IPathNode Node{
 			get;
 		}
 
@@ -21,24 +21,25 @@ namespace AntDiary{
 
 		internal float TotalCost => Cost + HeuristicCost;
 
-		internal Node DestNode{
+		internal IPathNode DestNode{
 			get;
 		}
 		
 		// public AStarNodeStatus status;
 
-		public AStarNode(Node node, AStarNode parent, float cost, Node to){
+		public AStarNode(IPathNode node, AStarNode parent, float cost, IPathNode to){
 			Node = node;
 			Parent = parent;
 			Cost = cost;
 			DestNode = to;
-			HeuristicCost = Vector2.Distance(node.Pos, to.Pos);
+			HeuristicCost = Vector2.Distance(node.WorldPosition, to.WorldPosition);
 			
 		}
 
 		public override string ToString(){
 			
-			return $"node:{Node.Uid} c:{Cost} h:{HeuristicCost}: tc:{TotalCost} from:{(Parent == null ? "null" : Parent.Node.Uid.ToString())}";
+			//return $"node:{Node.Uid} c:{Cost} h:{HeuristicCost}: tc:{TotalCost} from:{(Parent == null ? "null" : Parent.Node.Uid.ToString())}";
+			return $"node:{Node.WorldPosition} c:{Cost} h:{HeuristicCost}: tc:{TotalCost} from:{(Parent == null ? "null" : Parent.Node.WorldPosition.ToString())}";
 		}
 	}
 }

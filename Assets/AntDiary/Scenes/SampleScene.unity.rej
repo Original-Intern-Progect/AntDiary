@@ -1,0 +1,13 @@
+diff a/Assets/AntDiary/Scenes/SampleScene.unity b/Assets/AntDiary/Scenes/SampleScene.unity	(rejected hunks)
+@@ -428,6 +428,11 @@
+       objectReference: {fileID: 0}
+     m_RemovedComponents: []
+   m_SourcePrefab: {fileID: 100100000, guid: d3eb2a29aff437d4b94f11ec1db0a6ad, type: 3}
++--- !u!4 &1190518344 stripped
++Transform:
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 1190518343}
++  m_PrefabAsset: {fileID: 0}
+ --- !u!1 &1655549810
+ GameObject:
+   m_ObjectHideFlags: 0

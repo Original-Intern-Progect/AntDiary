@@ -14,11 +14,11 @@ namespace AntDiary
     /// </summary>
     public class UIGeneTreeView : MonoBehaviour
     {
-        [SerializeField] private Transform elementsRoot;
-        [SerializeField] private GameObject geneTreeNodePrefab;
-        [SerializeField] private GameObject geneTreeEdgePrefab;
-        [SerializeField] private RectTransform maskContainer;
-        [SerializeField] private RectTransform contentContainer;
+        [SerializeField] private Transform elementsRoot = default;
+        [SerializeField] private GameObject geneTreeNodePrefab = default;
+        [SerializeField] private GameObject geneTreeEdgePrefab = default;
+        [SerializeField] private RectTransform maskContainer = default;
+        [SerializeField] private RectTransform contentContainer = default;
         [SerializeField] private float padding = 200f;
         [SerializeField] private float horizontalSpacing = 200f;
         [SerializeField] private float verticalSpacing = 100f;

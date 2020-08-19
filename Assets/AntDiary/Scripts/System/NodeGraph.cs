@@ -42,11 +42,16 @@ namespace AntDiary{
 		/// ノードを削除し、そのノードとの接続関係も削除する
 		/// </summary>
 		/// <param name="node"></param>
-		public void RemoveNode(Node node){
-			foreach(var pair in node.ConnectedNodes){
-				var connectedNode = pair.Key;
-				connectedNode.Disconnect(node);
-				node.Disconnect(connectedNode);
+		public void RemoveNode(Node node)
+		{
+			var connectedNodes = node.GetConnectedNodes();
+			foreach(var other in connectedNodes){
+				//var connectedNode = pair.Key;
+				if (other is Node connectedNode)
+				{
+					connectedNode.Disconnect(node);
+					node.Disconnect(connectedNode);
+				}
 			}
 			_nodeMap.Remove(node.Uid);
 		}

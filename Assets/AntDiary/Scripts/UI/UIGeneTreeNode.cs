@@ -97,7 +97,7 @@ namespace AntDiary
         public bool IsSelected { get; private set; } = false;
 
         [SerializeField] private Sprite defaultSprite;
-        [SerializeField] private Sprite selectedSprite;
+        [SerializeField] private Sprite selectedSprite = default;
 
         private void Start()
         {

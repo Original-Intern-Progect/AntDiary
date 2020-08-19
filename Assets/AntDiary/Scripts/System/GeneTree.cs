@@ -9,7 +9,7 @@ namespace AntDiary
     [CreateAssetMenu(menuName = "AntDiary/GeneTree", fileName = "GeneTree")]
     public class GeneTree : ScriptableObject
     {
-        [SerializeField] private string displayName;
+        [SerializeField] private string displayName = default;
         [SerializeField] private List<Gene> genes = new List<Gene>();
         [SerializeField] private List<GeneEdge> edges = new List<GeneEdge>();
 

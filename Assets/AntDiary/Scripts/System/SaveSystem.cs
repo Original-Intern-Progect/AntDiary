@@ -59,7 +59,7 @@ namespace AntDiary
             
             if (GUILayout.Button($"初期状態のデータをロード"))
             {
-                    
+                LoadDefaultSaveUnitToCurrent();
             }
 
             for (int i = 0; i < 4; i++)

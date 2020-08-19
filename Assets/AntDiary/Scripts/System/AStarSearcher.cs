@@ -10,7 +10,7 @@ namespace AntDiary{
 			private set;
 		}
 
-		public List<Node> Route{
+		public List<IPathNode> Route{
 			get;
 			private set;
 		}
@@ -30,9 +30,9 @@ namespace AntDiary{
 		/// </summary>
 		/// <param name="from"></param>
 		/// <param name="to"></param>
-		public void SearchRoute(Node from, Node to){
+		public void SearchRoute(IPathNode from, IPathNode to){
 			
-			Route = new List<Node>();
+			Route = new List<IPathNode>();
 			if(from == to){
 				Completed = true;
 				return;
@@ -62,7 +62,7 @@ namespace AntDiary{
 
 		private AStarNode SearchProcess(AStarNode root){ 
 			List<AStarNode> openNodes = new List<AStarNode>();
-			List<AStarNode> closedNodes = new List<AStarNode>();
+			List<IPathNode> closedNodes = new List<IPathNode>();
 			openNodes.Add(root);
 			
 			
@@ -76,12 +76,21 @@ namespace AntDiary{
 				//最小コストを選択
 				AStarNode aStarNode = openNodes[0];
 
-				foreach(var pair in aStarNode.Node.ConnectedNodes){
-					var cost = aStarNode.Cost + pair.Value.GetCost;
+				var connectedNodes = aStarNode.Node.GetConnectedNodes();
+				foreach(var edge in aStarNode.Node.Edges){
+					var cost = aStarNode.Cost + edge.Cost;
 					
-					AStarNode childNode = new AStarNode(pair.Key, aStarNode, cost, aStarNode.DestNode);
+					var other = edge.GetOtherNode(aStarNode.Node);
 					
-					if(pair.Key == aStarNode.DestNode){
+					//CloseされたノードはOpenしない
+					if (closedNodes.Contains(other))
+					{
+						continue;
+					}
+					
+					AStarNode childNode = new AStarNode(other, aStarNode, cost, aStarNode.DestNode);
+					
+					if(other == aStarNode.DestNode){
 						return childNode;
 					}
 					
@@ -89,7 +98,9 @@ namespace AntDiary{
 				}
 
 				openNodes.Remove(aStarNode);
-				closedNodes.Add(aStarNode);
+				
+				//Closeする
+				closedNodes.Add(aStarNode.Node);
 				
 			}
 

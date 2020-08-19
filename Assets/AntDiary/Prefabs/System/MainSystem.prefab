@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1226401038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1226401040}
+  - component: {fileID: 1226401039}
+  m_Layer: 0
+  m_Name: DebugRoomFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1226401040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226401038}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7330755635594259116}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1226401039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226401038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35054adb30449dc46b309da580b76865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugRoomPrefab: {fileID: 4227190177196667157, guid: d8e5c0fc18006f740aa66ea9652a0cff,
+    type: 3}
 --- !u!1 &4114020909863239162
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,6 +97,51 @@ MonoBehaviour:
     releaseGene:
       m_PersistentCalls:
         m_Calls: []
+--- !u!1 &7313168783650805196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9044809901699592733}
+  - component: {fileID: 3029596168755555345}
+  m_Layer: 0
+  m_Name: DebugRoadFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9044809901699592733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313168783650805196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7330755635594259116}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3029596168755555345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313168783650805196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa5cbec96072204bb7e9e39881a4867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugRoadPrefab: {fileID: 4642346495408755846, guid: 4d63fe51b93b6174c931e45a6be5d7c5,
+    type: 3}
 --- !u!1 &7330755635365534191
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +217,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7330755635714401580}
+  - {fileID: 1226401040}
+  - {fileID: 9044809901699592733}
   m_Father: {fileID: 7330755635708001766}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -144,6 +236,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   antFactories:
   - {fileID: 7330755635714401571}
+  nestElementFactories:
+  - {fileID: 1226401039}
+  - {fileID: 3029596168755555345}
 --- !u!1 &7330755635708001764
 GameObject:
   m_ObjectHideFlags: 0

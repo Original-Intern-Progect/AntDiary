@@ -21,8 +21,8 @@ namespace AntDiary
             }
         }
         
-        [SerializeField] private Sprite selectedSprite;
-        [SerializeField] private Sprite defaultSprite;
+        [SerializeField] private Sprite selectedSprite = default;
+        [SerializeField] private Sprite defaultSprite = default;
         
         public void Initialize(UIGenePanel panel, GeneTree tree)
         {

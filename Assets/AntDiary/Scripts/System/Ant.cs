@@ -24,6 +24,11 @@ namespace AntDiary
         /// </summary>
         protected T SelfData { get; private set; }
         protected bool IsInitialized { get; private set; } = false;
+        
+        /// <summary>
+        /// NestSystemがデータを注入するのに使用します。そのほかからは呼ばないでください。
+        /// </summary>
+        /// <param name="antData"></param>
         public void Initialize(T antData)
         {
             if (IsInitialized) return;

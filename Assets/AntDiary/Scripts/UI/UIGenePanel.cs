@@ -10,9 +10,9 @@ namespace AntDiary
 {
     public class UIGenePanel : MonoBehaviour
     {
-        [SerializeField] private UIGeneTreeView treeView;
-        [SerializeField] private GameObject treeButtonPrefab;
-        [SerializeField] private RectTransform treeButtonRoot;
+        [SerializeField] private UIGeneTreeView treeView = default;
+        [SerializeField] private GameObject treeButtonPrefab = default;
+        [SerializeField] private RectTransform treeButtonRoot = default;
         
         public GeneTree SelectedGeneTree { get; private set; }
         public IObservable<GeneTree> OnSelectedGeneTreeChanged => onSelectedGeneTreeChanged;

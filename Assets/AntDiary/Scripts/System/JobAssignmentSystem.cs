@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.ComponentModel;
+using UnityEngine;
 
 namespace AntDiary
 {
@@ -12,36 +13,53 @@ namespace AntDiary
     /// </summary>
     public class JobAssignmentSystem
     {
-        //仕事の名前
-        private String[] jobs = new string[4] { "Architect", "Soilder", "Mule", "Free" };
+        //仕事の型リスト
+        private List<Type> antjobs;
+        private int jobCount;
+        int total;
         //理想の割合
-        public float[] idealrate { get; }
+        public float[] idealrate;
+        private NestData nestdata => NestSystem.Instance?.Data;
+        Dictionary<Type, int> antCounter = new Dictionary<Type, int>();
 
         public JobAssignmentSystem()
         {
-            idealrate = new float[4] { 25.0f, 25.0f, 25.0f, 25.0f };
+            //AntDataのサブクラスから仕事をtypeリストとして取得
+            antjobs = System.Reflection.Assembly.GetAssembly(typeof(AntData)).GetTypes().Where(x => x.IsSubclassOf(typeof(AntData))).ToList();
+            //DebugAntDataは削除
+            for (int i = 0; i < antjobs.Count; i++)
+            {
+                if (antjobs[i].Name.Equals("DebugAntData"))
+                {
+                    antjobs.RemoveAt(i);
+                    break;
+                }
+            }
+            jobCount = antjobs.Count;
+
+            //理想値の初期値を設定
+            idealrate = new float[jobCount] ;
+            for(int i = 0; i < idealrate.Length; i++)
+            {
+                idealrate[i] = 100.0f / idealrate.Length;
+            }
         }
 
         /// <summary>
         /// 仕事割り振り関数
         /// </summary>
-        /// <param name="current_Architect">現在の建築家の数</param>
-        /// <param name="current_Soilder">現在の兵士の数</param>
-        /// <param name="current_Mule">現在の運搬屋の数</param>
-        /// <param name="current_Free">現在の無職の数</param>
-        /// <returns>新しく割り振る仕事</returns>
-        public string AssignJob(int current_Architect,int current_Soilder, int current_Mule, int current_Free)
+        /// <returns>新しく割り振る仕事のtype</returns>
+        public Type AssignJob()
         {
+            InitAntCounter();
+
+            //理想値の取得？
             //int[] ideal = new int[4]; //{ ideal_Architect, ideal_Soilder, ideal_Mule, ideal_Free };
-            //引数から現在の仕事のアリの数配列と合計を出す
-            //引数じゃなくてNestDataからアクセスできるっぽい?NestDataの変更に応じて修正
-            //int total = NestSystem.Instance.Data.Ants.Length; //こんな感じ
-            int[] current = new int[4] { current_Architect, current_Soilder, current_Mule, current_Free };
-            int total = current.Sum();
 
             //diffに現在と理想の割合の差を保存
-            float[] diff = new float[4];
-            int[] index = new int[4];
+            float[] diff = new float[jobCount];
+            int[] index = new int[jobCount];
+            List<int> current = new List<int>(antCounter.Values);
 
             for (int i = 0; i < idealrate.Length; i++)
             {
@@ -51,24 +69,32 @@ namespace AntDiary
 
             //diffを元にindexをソート
             Array.Sort(diff,index);
-            //一番理想より少ない役職名を返す
-            return jobs[index[0]];
+            //一番理想より少ない役職typeを返す
+            return antjobs[index[0]];
         }
 
         /// <summary>
-        /// 理想値更新関数
+        /// antCounterの再計算
         /// </summary>
-        /// <param name="new_ideal">新しい理想値</param>
-        public void UpdateIdealRate(float[] new_ideal)
+        public void InitAntCounter()
         {
-            if (new_ideal.Length != idealrate.Length || new_ideal.Sum()<99||new_ideal.Sum()>101)
+            antCounter.Clear();
+            //antjobsを元にantCounter設定
+            for (int i = 0; i < jobCount; i++)
             {
-                return;
+                antCounter.Add(antjobs[i], 0);
             }
 
-            for (int i = 0; i < idealrate.Length; i++)
+            //生きているアリの総数と仕事ごとの数をカウント
+            total = 0;
+            foreach (var ant in nestdata.Ants)
             {
-                idealrate[i] = new_ideal[i];
+                Type antjob = ant.GetType();
+                if (antCounter.ContainsKey(antjob) && ant.IsAlive)
+                {
+                    antCounter[antjob]++;
+                    total++;
+                }
             }
         }
     }

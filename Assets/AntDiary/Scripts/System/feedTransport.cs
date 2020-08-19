@@ -76,7 +76,7 @@ public class feedTransport : MonoBehaviour
        //結果はsearcher.Routeに入る
 		foreach(var node in searcher.Route){
             //vにnode.Posで値を取得する
-            v.Add(node.Pos);
+            v.Add(node.WorldPosition);
 			Debug.Log(node.ToString());
 		}
 
