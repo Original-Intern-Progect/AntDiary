@@ -5,7 +5,7 @@ using AntDiary;
 using AntDiary.Scripts.Roads;
 using UnityEngine;
 
-public class TestRoadInstantiate : MonoBehaviour
+public class TestRoadInstantiateErgate : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start(){
@@ -36,8 +36,8 @@ public class TestRoadInstantiate : MonoBehaviour
         map[2, 1] = InstantiateCrossShapeRoad();
         map[2, 2] = InstantiateCrossShapeRoad();
         map[2, 3] = InstantiateLShapeRoad(EnumRoadDirection.Bottom);
-        map[2, 4] = InstantiateIShapeRoad(EnumRoadHVDirection.Horizontal);
-        //map[2,4] =  NestSystem.Instance.InstantiateNestElement(new StoreRoomData());       
+       // map[2, 4] = InstantiateIShapeRoad(EnumRoadHVDirection.Horizontal);
+        map[2,4] =  NestSystem.Instance.InstantiateNestElement(new StoreRoomData());       
 
         map[3, 0] = InstantiateIShapeRoad(EnumRoadHVDirection.Horizontal);
         map[3, 1] = InstantiateIShapeRoad(EnumRoadHVDirection.Horizontal);
@@ -79,8 +79,8 @@ public class TestRoadInstantiate : MonoBehaviour
         //横接続
         for(int i = 0; i < map.GetLength(0) - 1; i++){
             for(int j = 0; j < map.GetLength(1); j++){
-                var elemA = map[i, j]?.GetNodes().FirstOrDefault(n => n.Name == "wild_right");
-                var elemB = map[i+1, j]?.GetNodes().FirstOrDefault(n => n.Name == "wild_left");
+                var elemA = map[i, j]?.GetNodes().FirstOrDefault(n => n.Name == "right");
+                var elemB = map[i+1, j]?.GetNodes().FirstOrDefault(n => n.Name == "left");
                 if(elemA != null && elemB != null){
                     NestSystem.Instance.ConnectElements(elemA, elemB);
                 }
@@ -90,8 +90,8 @@ public class TestRoadInstantiate : MonoBehaviour
         //縦接続
         for(int i = 0; i < map.GetLength(0); i++){
             for(int j = 0; j < map.GetLength(1) - 1; j++){
-                var elemA = map[i, j]?.GetNodes().FirstOrDefault(n => n.Name == "wild_top");
-                var elemB = map[i, j+1]?.GetNodes().FirstOrDefault(n => n.Name == "wild_bottom");
+                var elemA = map[i, j]?.GetNodes().FirstOrDefault(n => n.Name == "top");
+                var elemB = map[i, j+1]?.GetNodes().FirstOrDefault(n => n.Name == "bottom");
                 if(elemA != null && elemB != null){
                     NestSystem.Instance.ConnectElements(elemA, elemB);
                 }
@@ -106,14 +106,13 @@ public class TestRoadInstantiate : MonoBehaviour
         ToConstructedElem(map[2, 2]);
         ToConstructedElem(map[2, 3]);
         
-        /*/ここから
+        //ここから
         NestSystem.Instance.InstantiateAnt(new ErgateAntData{Position = map[5, 0].transform.position});
         NestSystem.Instance.InstantiateAnt(new ErgateAntData{Position = map[2, 3].transform.position});
         var elemC = map[2,4].GetNodes().First(node => node.Name == "right");
-        var elemD = map[3,4].GetNodes().First(n => n.Name == "wild_left");
+        var elemD = map[3,4].GetNodes().First(n => n.Name == "left");
         NestSystem.Instance.ConnectElements(elemC,elemD);
         //ここまで少し追加しました後で消します
-        */
         NestSystem.Instance.InstantiateAnt(new BuilderAntData{Position = map[2, 2].transform.position});
         NestSystem.Instance.InstantiateAnt(new BuilderAntData{Position = map[2, 3].transform.position});
 
@@ -171,25 +170,25 @@ public class TestRoadInstantiate : MonoBehaviour
 
     private NestElement InstantiateIShapeRoad(EnumRoadHVDirection direction){
         var roadData = new IShapeRoadData(direction);
-        roadData.IsUnderConstruction = true;
+      //  roadData.IsUnderConstruction = true;
         return NestSystem.Instance.InstantiateNestElement(roadData);
     }
     
     private NestElement InstantiateLShapeRoad(EnumRoadDirection direction){
         var roadData = new LShapeRoadData(direction); 
-        roadData.IsUnderConstruction = true;
+       // roadData.IsUnderConstruction = true;
         return NestSystem.Instance.InstantiateNestElement(roadData);
     }
     
     private NestElement InstantiateTShapeRoad(EnumRoadDirection direction){
         var roadData = new TShapeRoadData(direction);
-       roadData.IsUnderConstruction = true;
+       // roadData.IsUnderConstruction = true;
         return NestSystem.Instance.InstantiateNestElement(roadData);
     }
     
     private NestElement InstantiateCrossShapeRoad(){
         var roadData = new CrossShapeRoadData(); 
-        roadData.IsUnderConstruction = true;
+        // roadData.IsUnderConstruction = true;
         return NestSystem.Instance.InstantiateNestElement(roadData);
     }
 
